@@ -5,6 +5,9 @@ jobs:
     strategy:
       matrix:
         platform: [ubuntu-latest]
+    env:
+      PIXELA_USER: ${{ secrets.PIXELA_USER }}
+      PIXELA_TOKEN: ${{ secrets.PIXELA_TOKEN }}
     runs-on: ${{ matrix.platform }}
     steps:
     - name: Install Go

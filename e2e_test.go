@@ -35,4 +35,12 @@ func TestAcceptanceClient(t *testing.T) {
 	if !result.IsSuccess {
 		t.Fatalf("CreateGraph() failed %#v", result)
 	}
+
+	result, err = cli.DeleteGraph(ctx, gid)
+	if err != nil {
+		t.Fatalf("DeleteGraph() failed: %v", err)
+	}
+	if !result.IsSuccess {
+		t.Fatalf("DeleteGraph() failed %#v", result)
+	}
 }
