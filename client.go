@@ -31,7 +31,7 @@ func New(userName, token string) *Client {
 
 type CreateGraphOpt func(*createGraphParams) error
 
-type CreateGraphResult struct {
+type GraphResult struct {
 	Message   string `json:"message"`
 	IsSuccess bool   `json:"isSuccess"`
 }
@@ -47,7 +47,7 @@ func (c *Client) CreateGraph(
 	ctx context.Context,
 	id GraphID, name, unit string, gtype GraphType,
 	color GraphColor, opts ...CreateGraphOpt,
-) (*CreateGraphResult, error) {
+) (*GraphResult, error) {
 	p := &createGraphParams{
 		ID:    id,
 		Name:  name,
@@ -74,14 +74,14 @@ func (c *Client) CreateGraph(
 	if err != nil {
 		return nil, err
 	}
-	var cgr CreateGraphResult
-	if err := json.NewDecoder(rsp.Body).Decode(&cgr); err != nil {
+	var gr GraphResult
+	if err := json.NewDecoder(rsp.Body).Decode(&gr); err != nil {
 		return nil, err
 	}
-	return &cgr, nil
+	return &gr, nil
 }
 
-func (c *Client) DeleteGraph(ctx context.Context, id GraphID) (*CreateGraphResult, error) {
+func (c *Client) DeleteGraph(ctx context.Context, id GraphID) (*GraphResult, error) {
 	ep := fmt.Sprintf("%s/users/%s/graphs/%s", APIBaseURL, c.UserName, id)
 	req, err := http.NewRequestWithContext(ctx, http.MethodDelete, ep, nil)
 	if err != nil {
@@ -92,9 +92,9 @@ func (c *Client) DeleteGraph(ctx context.Context, id GraphID) (*CreateGraphResul
 	if err != nil {
 		return nil, err
 	}
-	var cgr CreateGraphResult
-	if err := json.NewDecoder(rsp.Body).Decode(&cgr); err != nil {
+	var gr GraphResult
+	if err := json.NewDecoder(rsp.Body).Decode(&gr); err != nil {
 		return nil, err
 	}
-	return &cgr, nil
+	return &gr, nil
 }
