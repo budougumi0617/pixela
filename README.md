@@ -6,6 +6,6 @@ pixela
 ![reviewdog](https://github.com/budougumi0617/pixela/workflows/reviewdog/badge.svg)
 
 
-[Pixela] (https://pixe.la/) API client for Go.
+[Pixela](https://pixe.la/) API's library for Go.
 
 
