@@ -116,3 +116,28 @@ func (c *Client) GetGraph(ctx context.Context, id GraphID) (*GraphDefinition, er
 	}
 	return &gd, nil
 }
+
+func (c *Client) UpdateGraph(
+	ctx context.Context,
+	gd *GraphDefinition,
+) (*GraphResult, error) {
+	b, err := json.Marshal(gd)
+	if err != nil {
+		return nil, err
+	}
+	ep := fmt.Sprintf("%s/users/%s/graphs/%s", APIBaseURL, c.UserName, gd.ID)
+	req, err := http.NewRequestWithContext(ctx, http.MethodPut, ep, bytes.NewReader(b))
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Add(userToken, c.Token)
+	rsp, err := c.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var gr GraphResult
+	if err := json.NewDecoder(rsp.Body).Decode(&gr); err != nil {
+		return nil, err
+	}
+	return &gr, nil
+}

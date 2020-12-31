@@ -60,6 +60,24 @@ func TestAcceptanceClient(t *testing.T) {
 		t.Fatalf("GetGraph() diff: (-got +want)\n%s", diff)
 	}
 
+	// update graph
+	gd.Color = pixela.Momiji
+	gd.Unit = "time"
+	result, err = cli.UpdateGraph(ctx, gd)
+	if err != nil {
+		t.Fatalf("UpdateGraph() failed: %v", err)
+	}
+	if !result.IsSuccess {
+		t.Fatalf("UpdateGraph() failed %#v", result)
+	}
+	gotGd, err = cli.GetGraph(ctx, gid)
+	if err != nil {
+		t.Fatalf("GetGraph() failed: %v", err)
+	}
+	if diff := cmp.Diff(gotGd, gd); diff != "" {
+		t.Fatalf("GetGraph() diff: (-got +want)\n%s", diff)
+	}
+
 	// delete graph
 	result, err = cli.DeleteGraph(ctx, gid)
 	if err != nil {
