@@ -25,6 +25,28 @@ const (
 	// TODO define another color type
 )
 
+type SelfSufficientType string
+
+const (
+	SelfSufficientIncrement SelfSufficientType = "increment"
+	SelfSufficientDecrement SelfSufficientType = "decrement"
+	SelfSufficientNone      SelfSufficientType = "none"
+)
+
+// GraphDefinition is graph definition.
+type GraphDefinition struct {
+	ID                  GraphID            `json:"id"`
+	Name                string             `json:"name"`
+	Unit                string             `json:"unit"`
+	Type                GraphType          `json:"type"`
+	Color               GraphColor         `json:"color"`
+	TimeZone            string             `json:"timezone"`
+	PurgeCacheURLs      []string           `json:"purgeCacheURLs"`
+	SelfSufficient      SelfSufficientType `json:"selfSufficient"`
+	IsSecret            bool               `json:"isSecret"`
+	PublishOptionalData bool               `json:"publishOptionalData"`
+}
+
 type createGraphParams struct {
 	ID                  GraphID    `json:"id"`
 	Name                string     `json:"name"`
