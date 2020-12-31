@@ -98,3 +98,21 @@ func (c *Client) DeleteGraph(ctx context.Context, id GraphID) (*GraphResult, err
 	}
 	return &gr, nil
 }
+
+func (c *Client) GetGraph(ctx context.Context, id GraphID) (*GraphDefinition, error) {
+	ep := fmt.Sprintf("%s/users/%s/graphs/%s/graph-def", APIBaseURL, c.UserName, id)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, ep, nil)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Add(userToken, c.Token)
+	rsp, err := c.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	var gd GraphDefinition
+	if err := json.NewDecoder(rsp.Body).Decode(&gd); err != nil {
+		return nil, err
+	}
+	return &gd, nil
+}
