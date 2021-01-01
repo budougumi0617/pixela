@@ -32,6 +32,7 @@ func TestAcceptanceClient(t *testing.T) {
 		TimeZone:       "Asia/Tokyo",
 		SelfSufficient: pixela.SelfSufficientNone,
 	}
+	gds := []*pixela.GraphDefinition{gd}
 	// cleanup
 	_, _ = cli.DeleteGraph(ctx, gid)
 
@@ -76,6 +77,15 @@ func TestAcceptanceClient(t *testing.T) {
 	}
 	if diff := cmp.Diff(gotGd, gd); diff != "" {
 		t.Fatalf("GetGraph() diff: (-got +want)\n%s", diff)
+	}
+
+	// get all graphs
+	gotGds, err := cli.GetGraphs(ctx)
+	if err != nil {
+		t.Fatalf("GetGraphs() failed: %v", err)
+	}
+	if diff := cmp.Diff(gotGds, gds); diff != "" {
+		t.Fatalf("GetGraphs() diff: (-got +want)\n%s", diff)
 	}
 
 	// delete graph
