@@ -48,13 +48,13 @@ type GraphDefinition struct {
 }
 
 type createGraphParams struct {
-	ID                  GraphID    `json:"id"`
-	Name                string     `json:"name"`
-	Unit                string     `json:"unit"`
-	Type                GraphType  `json:"type"`
-	Color               GraphColor `json:"color"`
-	Timezone            string     `json:"timezone,omitempty"`
-	SelfSufficient      string     `json:"selfSufficient,omitempty"`
-	IsSecret            bool       `json:"isSecret,omitempty"`
-	PublishOptionalData bool       `json:"publishOptionalData,omitempty"`
+	ID                  GraphID            `json:"id"`
+	Name                string             `json:"name"`
+	Unit                string             `json:"unit"`
+	Type                GraphType          `json:"type"`
+	Color               GraphColor         `json:"color"`
+	Timezone            string             `json:"timezone,omitempty"`
+	SelfSufficient      SelfSufficientType `json:"selfSufficient,omitempty"`
+	IsSecret            bool               `json:"isSecret,omitempty"`
+	PublishOptionalData bool               `json:"publishOptionalData,omitempty"`
 }

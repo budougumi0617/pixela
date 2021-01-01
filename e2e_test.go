@@ -44,6 +44,7 @@ func TestAcceptanceClient(t *testing.T) {
 		gd.Type,
 		gd.Color,
 		pixela.TimeZone(gd.TimeZone),
+		pixela.SelfSufficient(gd.SelfSufficient),
 	)
 	if err != nil {
 		t.Fatalf("CreateGraph() failed: %v", err)

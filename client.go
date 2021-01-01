@@ -43,6 +43,27 @@ func TimeZone(tz string) CreateGraphOpt {
 	}
 }
 
+func SelfSufficient(sis SelfSufficientType) CreateGraphOpt {
+	return func(p *createGraphParams) error {
+		p.SelfSufficient = sis
+		return nil
+	}
+}
+
+func IsSecret(is bool) CreateGraphOpt {
+	return func(p *createGraphParams) error {
+		p.IsSecret = is
+		return nil
+	}
+}
+
+func PublishOptionalData(pod bool) CreateGraphOpt {
+	return func(p *createGraphParams) error {
+		p.PublishOptionalData = pod
+		return nil
+	}
+}
+
 func (c *Client) CreateGraph(
 	ctx context.Context,
 	id GraphID, name, unit string, gtype GraphType,
